@@ -1,10 +1,21 @@
 <h1 class="mt-4">Clientes</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">Cadastro</li>
+    <li class="breadcrumb-item active">{{ cliente.id ? 'Edição' : 'Cadastro' }}</li>
 </ol>
 <div class="container">
     <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
+
         <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success">
+                    Cliente salvo/atualizado com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="cliente.id != null">
             <div class="col-md-6">
                 <label>ID:</label>
                 <input type="text" class="form-control" [ngModel]="cliente.id" name="id" disabled="true">
@@ -25,10 +36,18 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-success">
+        <div class="row mt-2 mb-2">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success" *ngIf="!cliente.id">
                     <i class="fa fa-save"></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-primary" *ngIf="cliente.id">
+                    <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-secondary" (click)="voltarParaListagem()">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
                 </button>
             </div>
         </div>

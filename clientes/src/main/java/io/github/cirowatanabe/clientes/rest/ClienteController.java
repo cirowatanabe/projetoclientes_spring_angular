@@ -8,8 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin("http://localhost:4200")
 public class ClienteController {
 
     private final ClienteRepository repository;
@@ -18,6 +22,12 @@ public class ClienteController {
     public ClienteController(ClienteRepository repository) {
         this.repository = repository;
     }
+
+    @GetMapping
+    public List<Cliente> obterTodos(){
+        return repository.findAll();
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
