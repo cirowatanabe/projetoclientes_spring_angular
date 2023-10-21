@@ -13,7 +13,7 @@ export class ServicoPrestadoListaComponent {
   mes: number;
   meses: number[];
   lista: ServicoPrestadoBusca[];
-  message: string;
+  message: string | null;
 
   constructor(
     private service: ServicoPrestadoService
@@ -28,7 +28,7 @@ export class ServicoPrestadoListaComponent {
         if (this.lista.length <= 0){
           this.message = "Nenhum registtro encontrado"
         } else {
-          this.message = "";
+          this.message = null;
         }
       })
   }

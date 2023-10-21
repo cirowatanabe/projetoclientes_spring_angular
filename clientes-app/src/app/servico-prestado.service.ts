@@ -24,7 +24,6 @@ export class ServicoPrestadoService {
       .set("mes", mes ? mes.toString() : "");
 
     const url = this.apiURL + "?" + httpParams.toString();
-    console.log(url);
     return this.http.get<any>(url);
   }
 

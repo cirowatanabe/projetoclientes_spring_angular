@@ -29,7 +29,8 @@ export class ServicoPrestadoFormComponent implements OnInit {
   }
 
   onSubmit(){
-    this.servico.data = "01/01/2020";
+    this.servico.data = this.converterData(this.servico.data);
+    console.log(this.servico.data);
 
     this.service.salvar(this.servico)
       .subscribe({
@@ -43,6 +44,14 @@ export class ServicoPrestadoFormComponent implements OnInit {
           this.errors = errorResponse.error.errors;
         }
       });
+  }
+
+  converterData(data: string): string{
+    console.log(data);
+    let partes = data.split("-");
+    let retorno = partes[2] + '/' + partes[1] + '/' + partes[0];
+
+    return retorno;
   }
 
 }
