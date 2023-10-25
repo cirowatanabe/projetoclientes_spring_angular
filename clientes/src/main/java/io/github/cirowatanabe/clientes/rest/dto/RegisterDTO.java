@@ -1,6 +1,8 @@
 package io.github.cirowatanabe.clientes.rest.dto;
 
-import io.github.cirowatanabe.clientes.model.entity.enums.UserRole;
+import jakarta.validation.constraints.NotEmpty;
 
-public record RegisterDTO (String login, String password, UserRole role) {
-}
+public record RegisterDTO (
+        @NotEmpty(message = "{campo.login.obrigatorio}") String login,
+        @NotEmpty(message = "{campo.password.obrigatorio}") String password,
+        String role) {}

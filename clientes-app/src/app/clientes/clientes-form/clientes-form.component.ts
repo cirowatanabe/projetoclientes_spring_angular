@@ -70,6 +70,7 @@ export class ClientesFormComponent implements OnInit {
             this.cliente = v;
           },
           error: (errorResponse) => {
+            console.log(errorResponse);
             this.errors = errorResponse.error.errors;
             this.success = false;
           },
@@ -80,7 +81,7 @@ export class ClientesFormComponent implements OnInit {
   }
 
   voltarParaListagem() {
-    this.router.navigate(['/clientes-lista'])
+    this.router.navigate(['/clientes/lista'])
   }
 
 }

@@ -1,7 +1,7 @@
 package io.github.cirowatanabe.clientes.model.entity;
 
-import io.github.cirowatanabe.clientes.model.entity.enums.UserRole;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -25,15 +26,17 @@ public class Usuario implements UserDetails {
     private Integer id;
 
     @Column(unique = true)
+    @NotEmpty(message = "{campo.login.obrigatorio}")
     private String username;
 
     @Column(name = "password")
+    @NotEmpty(message = "{campo.senha.obrigatorio}")
     private String password;
 
     @Column(name="role")
-    private UserRole role;
+    private String role;
 
-    public Usuario(String username, String password, UserRole role) {
+    public Usuario(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -41,13 +44,13 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        if (Objects.equals(this.role, "ADMIN")) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
